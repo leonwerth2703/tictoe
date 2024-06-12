@@ -4,33 +4,37 @@
 
 let player1 = 'X';
 let player2 = 'O';
+
+const turns = ['X', 'O'];
+
 let turn = 0;
 let reset = 0;
 let dimension = 6; // boardSize
-let winLine = 3; // hoanggbao: line to win
+let winLine = 4; // hoanggbao: line to win
 let board;
 
-document.getElementById('play_again').disabled = true;
-document.getElementById('rst').disabled = true;
-document.getElementById('play_again').style.opacity = String(0.5);
-document.getElementById('rst').style.opacity = String(0.5);
+function handleReset(isPlaying, opacity, val) {
+    reset = val;
+    document.getElementById('play_again').disabled = isPlaying;
+    document.getElementById('rst').disabled = isPlaying;
+    document.getElementById('play_again').style.opacity = String(opacity);
+    document.getElementById('rst').style.opacity = String(opacity);
+}
+
+handleReset(true, 0.5, 0);
 
 function rst() {
     window.location.reload();
 }
 
 function play_again() {
-    board = new Array(dimension)
-        .fill('')
-        .map(() => new Array(dimension).fill(''));
+    board = new Array(dimension).fill('').map(() => new Array(dimension).fill(''));
     initGame();
     turn = 0;
-    reset = 0;
-    document.getElementById('play_again').disabled = true;
-    document.getElementById('rst').disabled = true;
-    document.getElementById('play_again').style.opacity = 0.5;
-    document.getElementById('rst').style.opacity = 0.5;
-    var rm = document.getElementById('field');
+
+    handleReset(true, 0.5, 0);
+
+    let rm = document.getElementById('field');
     while (rm.firstChild) {
         rm.removeChild(rm.firstChild);
     }
@@ -41,10 +45,8 @@ function start() {
     //alert(player1+" "+player2);
     document.getElementById('bottom').classList.remove('hide');
     document.getElementById('st').setAttribute('disabled', true);
-    document.getElementById('st').style.opacity = 0.5;
-    board = new Array(dimension)
-        .fill('')
-        .map(() => new Array(dimension).fill(''));
+    document.getElementById('st').style.opacity = String(0.5);
+    board = new Array(dimension).fill('').map(() => new Array(dimension).fill(''));
     initGame();
 }
 
@@ -148,14 +150,6 @@ function checkWin(row, col) {
     return rowChecked(row) || colChecked(col) || diagonal1Checked(row, col) || diagonal2Checked(row, col);
 }
 
-function handleReset() {
-    reset = 1;
-    document.getElementById('play_again').disabled = false;
-    document.getElementById('rst').disabled = false;
-    document.getElementById('play_again').style.opacity = 1;
-    document.getElementById('rst').style.opacity = 1;
-}
-
 const handleClick = (cell, i, j) => {
     const el = cell;
     if (reset === 1 || el.innerHTML !== '') {
@@ -166,12 +160,12 @@ const handleClick = (cell, i, j) => {
     el.innerHTML = board[i][j];
 
     if (checkWin(i, j)) { // hoanggbao: new condition
-        if (turn % 2 === 0) alert(player1 + ' is winner'); else alert(player2 + ' is winner');
-        handleReset();
+        alert(turns[turn % 2] + " is winner");
+        handleReset(false, 1, 1);
         return;
     }
     turn++;
-    document.getElementById('info').innerHTML = turn % 2 === 0 ? player1 + " turn's" : player2 + " turn's";
+    document.getElementById('info').innerHTML = turns[turn % 2] + " turn";
 
     if (turn === dimension * dimension && reset === 0) {
         alert('Game is drawn');
