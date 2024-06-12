@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="game.css"/>
+    <title>Document</title>
+</head>
+
+<body>
+<button onclick="start()" class="Start" id="st">Start</button>
+
+
+<div class="bottom hide" id="bottom">
+    <div class="field" id="field"></div>
+    <div class="info" id="info"></div>
+    <br/>
+    <div class="option" id="opt">
+        <button onclick="play_again()" class="play_again" id="play_again">
+            Play Again
+        </button>
+        <button onclick="rst()" class="reset" id="rst">Reset</button>
+    </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
