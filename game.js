@@ -2,9 +2,6 @@
  * Reference: https://codesandbox.io/p/sandbox/tic-tac-toedynamic-yirkd
  */
 
-let player1 = 'X';
-let player2 = 'O';
-
 const turns = ['X', 'O'];
 
 let turn = 0;
@@ -156,7 +153,7 @@ const handleClick = (cell, i, j) => {
         return;
     }
 
-    board[i][j] = turn % 2 === 0 ? 'X' : 'O';
+    board[i][j] = turns[turn % 2];
     el.innerHTML = board[i][j];
 
     if (checkWin(i, j)) { // hoanggbao: new condition
