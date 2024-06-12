@@ -10,7 +10,7 @@ const turns = ['X', 'O'];
 let turn = 0;
 let reset = 0;
 let dimension = 6; // boardSize
-let winLine = 4; // hoanggbao: line to win
+let winLine = 3; // hoanggbao: line to win
 let board;
 
 function handleReset(isPlaying, opacity, val) {
